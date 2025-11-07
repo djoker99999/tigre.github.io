@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐯 Le Tigre Magique</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://cdn6.aptoide.com/imgs/0/1/c/01c662d49e6d02a900e662e0debe0dd8_fgraphic.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+      min-height: 100vh;
+      padding: 10px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Overlay pour améliorer la lisibilité */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    /* Amélioration de la luminosité et du contraste */
+    body {
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .game-container {
+      max-width: 500px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      border: 2px solid rgba(255, 165, 0, 0.3);
+    }
+
+    .game-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ff8c00, #ff6b9d, #c44569, #ff8c00);
+      border-radius: 22px;
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+    }
+
+    .instructions {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .instructions h2 {
+      font-size: 1.5em;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .instructions p {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .tiger-container {
+      position: relative;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 300px;
+    }
+
+    .tiger {
+      width: 280px;
+      height: 250px;
+      margin: 0 auto;
+      background-image: url('https://i.pinimg.com/originals/34/bf/d9/34bfd980feb534cd92270e1cb5822510.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.7));
+      z-index: 5;
+    }
+
+    .tiger.easy {
+      filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.7)) brightness(1.1);
+    }
+
+    .tiger.medium {
+      filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.8)) brightness(1.1) hue-rotate(15deg);
+    }
+
+    .tiger.hard {
+      filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)) brightness(1.1) hue-rotate(330deg);
+      animation: redGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes redGlow {
+      0% { filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)) brightness(1.1) hue-rotate(330deg); }
+      100% { filter: drop-shadow(0 0 35px rgba(255, 50, 50, 1)) brightness(1.3) hue-rotate(320deg); }
+    }
+
+    .tiger.hit {
+      animation: lightHit 0.4s ease-out;
+    }
+
+    .tiger.heavy-hit {
+      animation: heavyHit 0.6s ease-out;
+    }
+
+    .tiger.critical-hit {
+      animation: criticalHit 0.8s ease-out;
+    }
+
+    .tiger.mega-hit {
+      animation: megaHit 1.2s ease-out;
+    }
+
+    .tiger.ultra-hit {
+      animation: ultraHit 1.5s ease-out;
+    }
+
+    .tiger.cracked {
+      filter: brightness(0.7) drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
+      animation: redPulse 1s infinite;
+    }
+
+    .tiger.broken {
+      opacity: 0.3;
+      filter: grayscale(100%) brightness(0.3);
+      animation: knockout 1.5s ease-out forwards;
+    }
+
+    @keyframes lightHit {
+      0% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(-10px) rotate(-5deg); }
+      50% { transform: translateX(5px) rotate(3deg); }
+      75% { transform: translateX(-3px) rotate(-2deg); }
+      100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    @keyframes heavyHit {
+      0% { transform: translateX(0) rotate(0deg) scale(1); }
+      20% { transform: translateX(-15px) rotate(-10deg) scale(0.95); }
+      40% { transform: translateX(8px) rotate(5deg) scale(1.05); }
+      60% { transform: translateX(-4px) rotate(-3deg) scale(0.98); }
+      80% { transform: translateX(2px) rotate(2deg) scale(1.02); }
+      100% { transform: translateX(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes criticalHit {
+      0% { transform: translateX(0) rotate(0deg) scale(1); }
+      15% { transform: translateX(-20px) rotate(-15deg) scale(0.9); }
+      30% { transform: translateX(12px) rotate(10deg) scale(1.1); }
+      45% { transform: translateX(-8px) rotate(-6deg) scale(0.95); }
+      60% { transform: translateX(5px) rotate(4deg) scale(1.05); }
+      75% { transform: translateX(-3px) rotate(-2deg) scale(0.98); }
+      90% { transform: translateX(1px) rotate(1deg) scale(1.02); }
+      100% { transform: translateX(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes megaHit {
+      0% { transform: translateX(0) rotate(0deg) scale(1); }
+      10% { transform: translateX(-25px) rotate(-20deg) scale(0.85); }
+      20% { transform: translateX(15px) rotate(12deg) scale(1.15); }
+      30% { transform: translateX(-12px) rotate(-8deg) scale(0.9); }
+      40% { transform: translateX(8px) rotate(6deg) scale(1.1); }
+      50% { transform: translateX(-6px) rotate(-4deg) scale(0.95); }
+      60% { transform: translateX(4px) rotate(3deg) scale(1.05); }
+      70% { transform: translateX(-2px) rotate(-2deg) scale(0.98); }
+      80% { transform: translateX(1px) rotate(1deg) scale(1.02); }
+      90% { transform: translateX(-0.5px) rotate(-0.5deg) scale(0.99); }
+      100% { transform: translateX(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes ultraHit {
+      0% { transform: translateX(0) rotate(0deg) scale(1); }
+      8% { transform: translateX(-30px) rotate(-25deg) scale(0.8); }
+      16% { transform: translateX(20px) rotate(15deg) scale(1.2); }
+      24% { transform: translateX(-15px) rotate(-12deg) scale(0.85); }
+      32% { transform: translateX(12px) rotate(10deg) scale(1.15); }
+      40% { transform: translateX(-8px) rotate(-8deg) scale(0.9); }
+      48% { transform: translateX(6px) rotate(5deg) scale(1.1); }
+      56% { transform: translateX(-4px) rotate(-4deg) scale(0.95); }
+      64% { transform: translateX(3px) rotate(3deg) scale(1.05); }
+      72% { transform: translateX(-2px) rotate(-2deg) scale(0.98); }
+      80% { transform: translateX(1px) rotate(1deg) scale(1.02); }
+      88% { transform: translateX(-0.5px) rotate(-0.5deg) scale(0.99); }
+      96% { transform: translateX(0.3px) rotate(0.3deg) scale(1.01); }
+      100% { transform: translateX(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes knockout {
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+      30% { transform: translateY(-10px) rotate(-15deg) scale(0.95); opacity: 0.9; }
+      70% { transform: translateY(40px) rotate(-90deg) scale(0.8); opacity: 0.7; }
+      100% { transform: translateY(60px) rotate(-90deg) scale(0.7); opacity: 0.4; }
+    }
+
+    @keyframes redPulse {
+      0%, 100% { filter: brightness(0.7) drop-shadow(0 0 15px rgba(255, 0, 0, 0.8)); }
+      50% { filter: brightness(0.5) drop-shadow(0 0 25px rgba(255, 0, 0, 1)); }
+    }
+
+    .screen-shake {
+      animation: screenShake 0.4s ease-out;
+    }
+
+    .mega-shake {
+      animation: megaShake 0.8s ease-out;
+    }
+
+    .ultra-shake {
+      animation: ultraShake 1.2s ease-out;
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+
+    @keyframes megaShake {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      10% { transform: translateX(-5px) translateY(-2px); }
+      20% { transform: translateX(5px) translateY(2px); }
+      30% { transform: translateX(-4px) translateY(-1px); }
+      40% { transform: translateX(4px) translateY(1px); }
+      50% { transform: translateX(-3px) translateY(-1px); }
+      60% { transform: translateX(3px) translateY(1px); }
+      70% { transform: translateX(-2px) translateY(-0.5px); }
+      80% { transform: translateX(2px) translateY(0.5px); }
+    }
+
+    @keyframes ultraShake {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      5% { transform: translateX(-8px) translateY(-3px); }
+      10% { transform: translateX(8px) translateY(3px); }
+      15% { transform: translateX(-6px) translateY(-2px); }
+      20% { transform: translateX(6px) translateY(2px); }
+      25% { transform: translateX(-4px) translateY(-1px); }
+      30% { transform: translateX(4px) translateY(1px); }
+      35% { transform: translateX(-3px) translateY(-1px); }
+      40% { transform: translateX(3px) translateY(1px); }
+      45% { transform: translateX(-2px) translateY(-0.5px); }
+      50% { transform: translateX(2px) translateY(0.5px); }
+      55% { transform: translateX(-1px) translateY(-0.2px); }
+      60% { transform: translateX(1px) translateY(0.2px); }
+    }
+
+    .impact-effect {
+      position: absolute;
+      font-size: 2em;
+      pointer-events: none;
+      z-index: 3;
+      animation: impactPop 1s ease-out forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+    }
+
+    @keyframes impactPop {
+      0% { opacity: 0; transform: scale(0.3) translateY(0); }
+      30% { opacity: 1; transform: scale(1.3) translateY(-10px); }
+      100% { opacity: 0; transform: scale(1) translateY(-30px); }
+    }
+
+    /* Styles pour le marteau */
+    .hammer {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transform-origin: bottom center;
+    }
+
+    .hammer-head {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(45deg, #8B4513, #A0522D, #8B4513);
+      border-radius: 4px;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hammer-handle {
+      position: absolute;
+      width: 6px;
+      height: 45px;
+      background: linear-gradient(to bottom, #D2691E, #8B4513);
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hammer-hit {
+      animation: hammerSwing 0.6s ease-out forwards;
+    }
+
+    @keyframes hammerSwing {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -100%) rotate(-25deg) scale(0.8);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -100%) rotate(10deg) scale(1);
+      }
+      40% {
+        transform: translate(-50%, -100%) rotate(-8deg) scale(1.1);
+      }
+      60% {
+        transform: translate(-50%, -100%) rotate(4deg) scale(1);
+      }
+      80% {
+        transform: translate(-50%, -100%) rotate(-2deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -100%) rotate(0deg) scale(0.8);
+      }
+    }
+
+    .attack-modes {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 15px 0;
+      flex-wrap: wrap;
+    }
+
+    .attack-mode-image {
+      width: 110px;
+      height: 110px;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    .attack-mode-image:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .attack-mode-image.active {
+      border-color: #fff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .attack-mode-image img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    }
+
+    .attack-mode-label {
+      font-size: 13px;
+      margin-top: 5px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .multiplier-indicator {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(45deg, #ff6b9d, #ff8c00);
+      color: #000;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border: 2px solid white;
+    }
+
+    .controls {
+      margin: 15px 0;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #ff8c00, #ff6b9d);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #resetBtn {
+      background: linear-gradient(45deg, #555, #777);
+    }
+
+    #resetBtn:hover {
+      background: linear-gradient(45deg, #777, #999);
+    }
+
+    #message {
+      margin: 15px 0;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      min-height: 25px;
+      color: #ffffff;
+    }
+
+    /* Styles pour la popup de victoire */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-content {
+      background: linear-gradient(135deg, rgba(255, 107, 157, 0.95), rgba(255, 140, 0, 0.95));
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      transform: scale(0.7);
+      transition: transform 0.4s ease;
+      position: relative;
+    }
+
+    .popup-overlay.active .popup-content {
+      transform: scale(1);
+    }
+
+    .popup-content h3 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-reward-image {
+      width: 140px;
+      height: 140px;
+      margin: 15px auto;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .popup-reward-text {
+      font-size: 1.3em;
+      margin: 15px 0;
+      color: #ffffff;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-victory-message {
+      font-size: 1.4em;
+      margin: 15px 0;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 140, 0, 0.7);
+      font-weight: bold;
+    }
+
+    .popup-close-btn {
+      padding: 10px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .popup-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #ff8c00, #ff6b9d);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .coins-display {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(45deg, #ff6b9d, #ff8c00);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-weight: bold;
+      animation: coinPop 1s ease;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    @keyframes coinPop {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px) scale(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-8px) scale(1.1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-25px) scale(1);
+      }
+    }
+
+    .combo-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9em;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255,255,255,0.2);
+      color: #ffffff;
+    }
+
+    .difficulty-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .difficulty-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .difficulty-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .difficulty-btn:hover::before {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .difficulty-btn.noob {
+      background-image: url('https://i.ibb.co/gFMBxFzP/IMG-6063.png');
+    }
+
+    .difficulty-btn.buchette {
+      background-image: url('https://i.ibb.co/JMPfpWV/IMG-5851.png');
+    }
+
+    .difficulty-btn.easy {
+      background-image: url('https://i.ibb.co/p6s7HT5n/IMG-7322.png');
+    }
+
+    .difficulty-btn.medium {
+      background-image: url('https://i.ibb.co/hxXnkQh7/IMG-5861.png');
+    }
+
+    .difficulty-btn.hard {
+      background-image: url('https://i.ibb.co/DHBNtX7t/IMG-6573.png');
+    }
+
+    .difficulty-btn.active {
+      border-color: #ff8c00;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+      transform: scale(1.1);
+    }
+
+    .difficulty-btn.active::before {
+      background: rgba(255, 140, 0, 0.2);
+    }
+
+    /* Styles pour mobile */
+    @media (max-width: 480px) {
+      .game-container {
+        padding: 15px;
+        margin: 5px;
+      }
+      
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .tiger {
+        width: 220px;
+        height: 200px;
+      }
+
+      .difficulty-selector {
+        gap: 10px;
+      }
+
+      .difficulty-btn {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .instructions {
+        padding: 10px;
+        margin: 15px 0;
+      }
+      
+      .instructions h2 {
+        font-size: 1.3em;
+      }
+      
+      .instructions p {
+        font-size: 1em;
+      }
+      
+      .attack-modes {
+        gap: 4px;
+      }
+
+      .attack-mode-btn {
+        padding: 5px 8px;
+        font-size: 11px;
+        min-width: 40px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 13px;
+        margin: 5px;
+      }
+      
+      .popup-content {
+        padding: 20px;
+        max-width: 90%;
+      }
+      
+      .popup-reward-image {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .popup-content h3 {
+        font-size: 1.5em;
+      }
+      
+      .popup-reward-text {
+        font-size: 1.1em;
+      }
+      
+      .popup-victory-message {
+        font-size: 1.2em;
+      }
+    }
+
+    /* Effets de particules */
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ff8c00;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .difficulty-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+
+    .difficulty-badge.noob {
+      background: linear-gradient(45deg, #87CEEB, #B0E0E6);
+      color: #000;
+    }
+
+    .difficulty-badge.buchette {
+      background: linear-gradient(45deg, #DDA0DD, #DA70D6);
+    }
+
+    .difficulty-badge.easy {
+      background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    }
+
+    .difficulty-badge.medium {
+      background: linear-gradient(45deg, #FF9800, #FFC107);
+    }
+
+    .difficulty-badge.hard {
+      background: linear-gradient(45deg, #F44336, #E91E63);
+    }
+
+    /* Compteur de points de vie */
+    .hp-counter {
+      background: linear-gradient(45deg, #ff6b9d, #c44569);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      margin: 15px auto;
+      max-width: 200px;
+      text-align: center;
+    }
+
+    .hp-counter .hp-label {
+      font-size: 12px;
+      opacity: 0.9;
+      display: block;
+      color: #ffffff;
+    }
+
+    .hp-counter .hp-value {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 2px;
+      display: block;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container" id="gameContainer">
+    <div class="combo-indicator" id="comboIndicator">COMBO x0</div>
+
+    <h1>🐯 Le Tigre Magique !</h1>
+    
+    <div class="difficulty-selector">
+      <div class="difficulty-btn noob active" data-difficulty="noob" title="Noob - 1500 HP"></div>
+      <div class="difficulty-btn buchette" data-difficulty="buchette" title="Buchette - 5000 HP"></div>
+      <div class="difficulty-btn easy" data-difficulty="easy" title="Facile - 15000 HP"></div>
+      <div class="difficulty-btn medium" data-difficulty="medium" title="Moyen - 25000 HP"></div>
+      <div class="difficulty-btn hard" data-difficulty="hard" title="Difficile - 50000 HP"></div>
+    </div>
+    
+    <div class="tiger-container">
+      <div class="tiger easy" id="tiger"></div>
+      <div class="particles-container" id="particlesContainer"></div>
+    </div>
+
+    <div class="instructions">
+      <h2>🐯 Dompte le Tigre Magique et Gagne le Trésor ! 🐯</h2>
+      <p>Un Coup = Un Point de Vie en Moins</p>
+    </div>
+
+    <div class="attack-modes">
+      <div id="mode1" class="attack-mode-image active">
+        <img src="https://i.ibb.co/WNXDxn2y/IMG-7354-Photoroom.png" alt="Rose - 1 coup">
+        <div class="attack-mode-label">1 coup</div>
+      </div>
+      <div id="mode10" class="attack-mode-image">
+        <img src="https://i.ibb.co/7JsBRrCn/IMG-5885.png" alt="Rosa - 10 coups">
+        <div class="attack-mode-label">10 coups</div>
+      </div>
+      <div id="mode30" class="attack-mode-image">
+        <img src="https://i.ibb.co/8DMJ0cxy/IMG-7355-Photoroom.png" alt="Donuts - 30 coups">
+        <div class="attack-mode-label">30 coups</div>
+      </div>
+      <div id="mode100" class="attack-mode-image">
+        <img src="https://i.ibb.co/C5M6DHcS/IMG-7356-Photoroom.png" alt="Coeurs - 100 coups">
+        <div class="attack-mode-label">100 coups</div>
+      </div>
+      <div id="mode500" class="attack-mode-image">
+        <img src="https://i.ibb.co/nNy17WfL/IMG-6065.png" alt="Mini Gun - 500 coups">
+        <div class="attack-mode-label">500 coups</div>
+      </div>
+      <div id="mode1000" class="attack-mode-image">
+        <img src="https://i.ibb.co/JMPfpWV/IMG-5851.png" alt="Galaxie - 1000 coups">
+        <div class="attack-mode-label">1000 coups</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="attackBtn">Attaquer (1 coup)</button>
+      <button id="resetBtn">Nouveau Tigre</button>
+    </div>
+
+    <p id="message"></p>
+  </div>
+
+  <!-- Compteur de points de vie -->
+  <div class="hp-counter" id="hpCounter">
+    <span class="hp-label">Points de vie restants</span>
+    <span class="hp-value" id="hpValue">15000 / 15000</span>
+  </div>
+
+  <!-- Popup de victoire -->
+  <div class="popup-overlay" id="victoryPopup">
+    <div class="popup-content">
+      <h3>🎉 Tigre Magique Dompté ! 🎉</h3>
+      <div id="popupRewardImage" class="popup-reward-image"></div>
+      <p id="popupRewardText" class="popup-reward-text"></p>
+      <div id="popupVictoryMessage" class="popup-victory-message"></div>
+      <button class="popup-close-btn" id="closePopupBtn">Continuer</button>
+    </div>
+  </div>
+
+  <script>
+    let maxHP, currentHP, coupCounter, totalHits;
+    let hitsUntilCoin = 4;
+    let attackMode = 1;
+    let rosesEarnedThisDiamond = 0;
+    let combo = 0;
+    let lastHitTime = 0;
+    let isAttacking = false;
+    let audioContext = null;
+    let currentDifficulty = "noob";
+
+    const tiger = document.getElementById("tiger");
+    const message = document.getElementById("message");
+    const attackBtn = document.getElementById("attackBtn");
+    const gameContainer = document.getElementById("gameContainer");
+    const comboIndicator = document.getElementById("comboIndicator");
+    const particlesContainer = document.getElementById("particlesContainer");
+    const hpValue = document.getElementById("hpValue");
+    
+    // Éléments de la popup
+    const victoryPopup = document.getElementById("victoryPopup");
+    const popupRewardImage = document.getElementById("popupRewardImage");
+    const popupRewardText = document.getElementById("popupRewardText");
+    const popupVictoryMessage = document.getElementById("popupVictoryMessage");
+    const closePopupBtn = document.getElementById("closePopupBtn");
+
+    const impactEffects = ["💥", "🔥", "⭐", "💫", "✨", "💢"];
+
+    // Système audio corrigé
+    function initAudioContext() {
+      try {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        return audioContext;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function createSound(frequency, duration, type = 'sine', volume = 0.15) {
+      const context = initAudioContext();
+      if (!context) return;
+
+      try {
+        const oscillator = context.createOscillator();
+        const gainNode = context.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(context.destination);
+        
+        oscillator.frequency.value = frequency;
+        oscillator.type = type;
+        
+        gainNode.gain.setValueAtTime(volume, context.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + duration);
+        
+        oscillator.start(context.currentTime);
+        oscillator.stop(context.currentTime + duration);
+      } catch (e) {
+        // Silence en cas d'erreur
+      }
+    }
+
+    function playHitSound() {
+      createSound(800, 0.1, 'square');
+      setTimeout(() => createSound(400, 0.05, 'triangle'), 50);
+    }
+
+    function playCrackSound() {
+      createSound(200, 0.3, 'sawtooth');
+      setTimeout(() => createSound(150, 0.2, 'sawtooth'), 100);
+    }
+
+    function playBreakSound() {
+      createSound(100, 0.5, 'sawtooth');
+      setTimeout(() => createSound(300, 0.3, 'square'), 100);
+      setTimeout(() => createSound(600, 0.2, 'sine'), 200);
+    }
+
+    // Fonction pour créer un marteau animé
+    function createHammer() {
+      const hammer = document.createElement('div');
+      hammer.className = 'hammer';
+      
+      const hammerHead = document.createElement('div');
+      hammerHead.className = 'hammer-head';
+      
+      const hammerHandle = document.createElement('div');
+      hammerHandle.className = 'hammer-handle';
+      
+      hammer.appendChild(hammerHead);
+      hammer.appendChild(hammerHandle);
+      
+      // Positionner le marteau au-dessus du tigre
+      const tigerRect = tiger.getBoundingClientRect();
+      const containerRect = tiger.parentElement.getBoundingClientRect();
+      
+      hammer.style.left = (tigerRect.left + tigerRect.width/2 - containerRect.left) + 'px';
+      hammer.style.top = (tigerRect.top - containerRect.top) + 'px';
+      
+      tiger.parentElement.appendChild(hammer);
+      
+      return hammer;
+    }
+
+    // Fonction pour animer le marteau
+    function animateHammer() {
+      const hammer = createHammer();
+      hammer.classList.add('hammer-hit');
+      
+      // Supprimer le marteau après l'animation
+      setTimeout(() => {
+        if (hammer.parentElement) {
+          hammer.parentElement.removeChild(hammer);
+        }
+      }, 600);
+    }
+
+    // Fonction pour créer des particules d'impact
+    function createHitParticles() {
+      for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const tigerRect = tiger.getBoundingClientRect();
+        const containerRect = tiger.parentElement.getBoundingClientRect();
+        
+        particle.style.left = (tigerRect.left + tigerRect.width/2 - containerRect.left + (Math.random() * 60 - 30)) + 'px';
+        particle.style.top = (tigerRect.top + tigerRect.height/2 - containerRect.top + (Math.random() * 60 - 30)) + 'px';
+        
+        particlesContainer.appendChild(particle);
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 30 + Math.random() * 40;
+        
+        particle.animate([
+          {
+            transform: 'scale(1)',
+            opacity: 1
+          },
+          {
+            transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
+            opacity: 0
+          }
+        ], {
+          duration: 500 + Math.random() * 300,
+          easing: 'ease-out'
+        }).onfinish = () => particle.remove();
+      }
+    }
+
+    function createImpactEffect() {
+      const effect = document.createElement('div');
+      effect.className = 'impact-effect';
+      effect.textContent = impactEffects[Math.floor(Math.random() * impactEffects.length)];
+      effect.style.left = (Math.random() * 70 + 15) + '%';
+      effect.style.top = (Math.random() * 50 + 25) + '%';
+      
+      document.querySelector('.tiger-container').appendChild(effect);
+      
+      setTimeout(() => {
+        effect.remove();
+      }, 1000);
+    }
+
+    function updateCombo() {
+      const currentTime = Date.now();
+      if (currentTime - lastHitTime > 2000) {
+        combo = 0;
+      }
+      combo++;
+      lastHitTime = currentTime;
+      
+      if (combo >= 3) {
+        comboIndicator.textContent = `COMBO x${combo}`;
+        comboIndicator.style.display = 'block';
+      }
+    }
+
+    // Fonction d'attaque CORRIGÉE avec protection anti-clics multiples
+    function attack() {
+      if (currentHP <= 0 || isAttacking) return;
+      
+      isAttacking = true;
+      
+      let hits = attackMode;
+      let actualHits = 0;
+      let rosesEarned = 0;
+      let wasCracked = tiger.classList.contains('cracked');
+      
+      // Animer le marteau
+      animateHammer();
+      
+      playHitSound();
+      createHitParticles();
+      createImpactEffect();
+      updateCombo();
+      
+      let animationType = 'hit';
+      let shakeType = 'screen-shake';
+      let animationDuration = 400;
+      
+      if (attackMode >= 1000) {
+        animationType = 'ultra-hit';
+        shakeType = 'ultra-shake';
+        animationDuration = 1200;
+      } else if (attackMode >= 500) {
+        animationType = 'mega-hit';
+        shakeType = 'mega-shake';
+        animationDuration = 1000;
+      } else if (attackMode >= 100) {
+        animationType = 'critical-hit';
+        shakeType = 'mega-shake';
+        animationDuration = 800;
+      } else if (attackMode >= 30) {
+        animationType = 'heavy-hit';
+        animationDuration = 600;
+      } else if (attackMode >= 10) {
+        animationType = 'heavy-hit';
+        animationDuration = 600;
+      }
+
+      tiger.classList.add(animationType);
+      if (shakeType) gameContainer.classList.add(shakeType);
+      
+      for (let i = 0; i < hits && currentHP > 0; i++) {
+        coupCounter++;
+        actualHits++;
+        totalHits++;
+
+        // 1 coup = -1 point de vie
+        currentHP--;
+
+        hitsUntilCoin--;
+        if (hitsUntilCoin <= 0) {
+          rosesEarnedThisDiamond++;
+          rosesEarned++;
+          hitsUntilCoin = 4;
+        }
+      }
+      
+      if (rosesEarned > 0) {
+        showRoseGain(rosesEarned);
+      }
+      
+      updateUI();
+      
+      if (!wasCracked && tiger.classList.contains('cracked')) {
+        playCrackSound();
+      }
+      
+      setTimeout(() => {
+        tiger.classList.remove(animationType);
+        if (shakeType) gameContainer.classList.remove(shakeType);
+        isAttacking = false;
+        
+        if (currentHP <= 0) {
+          endGame();
+        }
+      }, animationDuration);
+    }
+
+    function showRoseGain(amount) {
+      const roseDisplay = document.createElement('div');
+      roseDisplay.className = 'coins-display';
+      roseDisplay.textContent = `+${amount} 🌹`;
+      tiger.parentElement.appendChild(roseDisplay);
+      
+      setTimeout(() => {
+        roseDisplay.remove();
+      }, 1000);
+    }
+
+    function updateUI() {
+      // Mettre à jour le compteur de points de vie
+      hpValue.textContent = `${currentHP.toLocaleString()} / ${maxHP.toLocaleString()}`;
+      
+      let difficultyName = "";
+      switch(currentDifficulty) {
+        case "noob": difficultyName = "noob"; break;
+        case "buchette": difficultyName = "buchette"; break;
+        case "easy": difficultyName = "facile"; break;
+        case "medium": difficultyName = "moyen"; break;
+        case "hard": difficultyName = "difficile"; break;
+      }
+      
+      if (currentHP === 0) {
+        tiger.className = "tiger broken " + currentDifficulty;
+        message.textContent = "💥 Le tigre magique a été dompté !";
+      } else {
+        if (maxHP - currentHP >= maxHP * 0.7) {
+          tiger.classList.add("cracked");
+          message.textContent = "⚠️ Le tigre magique commence à faiblir...";
+        } else {
+          tiger.classList.remove("cracked");
+          message.textContent = `Tigre magique ${difficultyName} - À tout moment le tigre peut être dompté...`;
+        }
+      }
+    }
+
+    function showVictoryPopup() {
+      let rewardText = "";
+      let victoryText = "";
+      let rewardImg = "";
+      
+      // Déterminer la récompense selon la difficulté
+      switch(currentDifficulty) {
+        case "noob":
+          rewardText = "Vous avez gagné 300 pièces !";
+          victoryText = "Bravo ! Tu as gagné tes premières pièces !";
+          rewardImg = "https://i.ibb.co/gFMBxFzP/IMG-6063.png";
+          break;
+        case "buchette":
+          rewardText = "Vous avez gagné une galaxie !";
+          victoryText = "Incroyable ! Tu as découvert une galaxie entière !";
+          rewardImg = "https://i.ibb.co/JMPfpWV/IMG-5851.png";
+          break;
+        case "easy":
+          rewardText = "Vous avez gagné 3000 pièces !";
+          victoryText = "Félicitations ! Tu as remporté un superbe trésor !";
+          rewardImg = "https://i.ibb.co/p6s7HT5n/IMG-7322.png";
+          break;
+        case "medium":
+          rewardText = "Vous avez gagné 5000 pièces !";
+          victoryText = "Incroyable ! Tu as trouvé un trésor précieux !";
+          rewardImg = "https://i.ibb.co/hxXnkQh7/IMG-5861.png";
+          break;
+        case "hard":
+          rewardText = "Vous avez gagné 10000 pièces !";
+          victoryText = "Victoire totale ! Tu as remporté le jackpot !";
+          rewardImg = "https://i.ibb.co/DHBNtX7t/IMG-6573.png";
+          break;
+      }
+      
+      popupRewardImage.style.backgroundImage = `url('${rewardImg}')`;
+      
+      // Message de victoire clair et épuré
+      popupRewardText.innerHTML = `
+        <div class="difficulty-badge ${currentDifficulty}">NIVEAU ${currentDifficulty.toUpperCase()}</div><br>
+        <strong>RÉCOMPENSE :</strong><br>
+        ${rewardText}
+      `;
+      
+      popupVictoryMessage.textContent = victoryText;
+      
+      // Centrer la popup sur le jeu
+      const gameRect = gameContainer.getBoundingClientRect();
+      const popupContent = document.querySelector('.popup-content');
+      
+      // Positionner la popup au centre du jeu
+      victoryPopup.style.display = 'flex';
+      setTimeout(() => {
+        victoryPopup.classList.add('active');
+      }, 10);
+    }
+
+    function closeVictoryPopup() {
+      victoryPopup.classList.remove('active');
+      setTimeout(() => {
+        victoryPopup.style.display = 'none';
+      }, 300);
+    }
+
+    function endGame() {
+      playBreakSound();
+      
+      message.textContent = "💥 Félicitations ! Tu as dompté le tigre magique ! 🐯✨";
+      
+      setTimeout(() => {
+        showVictoryPopup();
+      }, 500);
+      
+      comboIndicator.style.display = "none";
+    }
+
+    function setAttackMode(mode) {
+      attackMode = mode;
+      
+      document.querySelectorAll('.attack-mode-image').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const btnEl = document.getElementById(`mode${mode}`);
+      if (btnEl) btnEl.classList.add('active');
+
+      attackBtn.textContent = `Attaquer (${mode} coup${mode > 1 ? 's' : ''})`;
+    }
+
+    function setDifficulty(difficulty) {
+      currentDifficulty = difficulty;
+      
+      // Mettre à jour l'apparence des boutons de difficulté
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`.difficulty-btn.${difficulty}`).classList.add('active');
+      
+      // Mettre à jour l'apparence du tigre
+      tiger.className = "tiger " + difficulty;
+      
+      // Réinitialiser le jeu avec la nouvelle difficulté
+      initGame();
+    }
+
+    function initGame() {
+      // Définir les points de vie selon la difficulté
+      switch(currentDifficulty) {
+        case "noob":
+          maxHP = 1500;
+          break;
+        case "buchette":
+          maxHP = 5000;
+          break;
+        case "easy":
+          maxHP = 15000;
+          break;
+        case "medium":
+          maxHP = 25000;
+          break;
+        case "hard":
+          maxHP = 50000;
+          break;
+      }
+      
+      currentHP = maxHP;
+      coupCounter = 0;
+      totalHits = 0;
+      hitsUntilCoin = 4;
+      rosesEarnedThisDiamond = 0;
+      combo = 0;
+      lastHitTime = 0;
+      isAttacking = false;
+      
+      tiger.className = "tiger " + currentDifficulty;
+      
+      let difficultyName = "";
+      switch(currentDifficulty) {
+        case "noob": difficultyName = "noob"; break;
+        case "buchette": difficultyName = "buchette"; break;
+        case "easy": difficultyName = "facile"; break;
+        case "medium": difficultyName = "moyen"; break;
+        case "hard": difficultyName = "difficile"; break;
+      }
+      message.textContent = `Tigre magique ${difficultyName} - À tout moment le tigre peut être dompté...`;
+      
+      // Fermer la popup si elle est ouverte
+      closeVictoryPopup();
+      comboIndicator.style.display = "none";
+
+      // reset des compteurs visibles (sécurité si tu veux les afficher autrement)
+      coupCounter = 0;
+      totalHits = 0;
+      hitsUntilCoin = 4;
+      
+      // Mettre à jour l'affichage des points de vie
+      updateUI();
+    }
+
+    // Événements CORRIGÉS
+    document.getElementById("attackBtn").addEventListener("click", attack);
+    document.getElementById("resetBtn").addEventListener("click", initGame);
+
+    document.getElementById("mode1").addEventListener("click", () => setAttackMode(1));
+    document.getElementById("mode10").addEventListener("click", () => setAttackMode(10));
+    document.getElementById("mode30").addEventListener("click", () => setAttackMode(30));
+    document.getElementById("mode100").addEventListener("click", () => setAttackMode(100));
+    document.getElementById("mode500").addEventListener("click", () => setAttackMode(500));
+    document.getElementById("mode1000").addEventListener("click", () => setAttackMode(1000));
+
+    // Sélecteur de difficulté
+    document.querySelectorAll('.difficulty-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        setDifficulty(this.getAttribute('data-difficulty'));
+      });
+    });
+
+    // Fermer la popup
+    closePopupBtn.addEventListener('click', closeVictoryPopup);
+
+    // Fermer la popup en cliquant en dehors
+    victoryPopup.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVictoryPopup();
+      }
+    });
+
+    // Raccourcis clavier
+    document.addEventListener('keydown', (e) => {
+      if (isAttacking) return;
+      
+      switch(e.key) {
+        case ' ':
+        case 'Enter':
+          e.preventDefault();
+          attack();
+          break;
+        case '1':
+          setAttackMode(1);
+          break;
+        case '2':
+          setAttackMode(10);
+          break;
+        case '3':
+          setAttackMode(30);
+          break;
+        case '4':
+          setAttackMode(100);
+          break;
+        case '5':
+          setAttackMode(500);
+          break;
+        case '6':
+          setAttackMode(1000);
+          break;
+        case 'r':
+        case 'R':
+          initGame();
+          break;
+        case 'n':
+        case 'N':
+          setDifficulty('noob');
+          break;
+        case 'b':
+        case 'B':
+          setDifficulty('buchette');
+          break;
+        case 'e':
+        case 'E':
+          setDifficulty('easy');
+          break;
+        case 'm':
+        case 'M':
+          setDifficulty('medium');
+          break;
+        case 'd':
+        case 'D':
+          setDifficulty('hard');
+          break;
+        case 'Escape':
+          closeVictoryPopup();
+          break;
+      }
+    });
+
+    // Reset combo après inactivité
+    setInterval(() => {
+      const currentTime = Date.now();
+      if (currentTime - lastHitTime > 3000 && combo > 0) {
+        combo = 0;
+        comboIndicator.style.display = "none";
+      }
+    }, 1000);
+
+    initGame();
+  </script>
+</body>
+</html>
