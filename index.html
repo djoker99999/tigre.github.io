@@ -367,6 +367,42 @@
       }
     }
 
+    /* Animation d'attaque spéciale */
+    .special-attack {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .special-attack.active {
+      animation: specialAttackAnim 1s ease-out forwards;
+    }
+
+    @keyframes specialAttackAnim {
+      0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-50px) scale(0.5);
+      }
+      20% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0) scale(1);
+      }
+      80% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px) scale(0.8);
+      }
+    }
+
     .attack-modes {
       display: flex;
       justify-content: center;
@@ -710,6 +746,11 @@
         height: 200px;
       }
 
+      .special-attack {
+        width: 120px;
+        height: 120px;
+      }
+
       .difficulty-selector {
         gap: 10px;
       }
@@ -869,6 +910,7 @@
     </div>
     
     <div class="tiger-container">
+      <div class="special-attack" id="specialAttack"></div>
       <div class="tiger easy" id="tiger"></div>
       <div class="particles-container" id="particlesContainer"></div>
     </div>
@@ -948,6 +990,7 @@
     const comboIndicator = document.getElementById("comboIndicator");
     const particlesContainer = document.getElementById("particlesContainer");
     const hpValue = document.getElementById("hpValue");
+    const specialAttack = document.getElementById("specialAttack");
     
     // Éléments de la popup
     const victoryPopup = document.getElementById("victoryPopup");
@@ -1085,6 +1128,25 @@
       }
     }
 
+    // Fonction pour animer l'attaque spéciale
+    function animateSpecialAttack() {
+      // Créer l'élément d'attaque spéciale s'il n'existe pas
+      if (!specialAttack.style.backgroundImage) {
+        specialAttack.style.backgroundImage = "url('https://i.gifer.com/37Ft.gif')";
+        specialAttack.style.backgroundSize = "contain";
+        specialAttack.style.backgroundRepeat = "no-repeat";
+        specialAttack.style.backgroundPosition = "center";
+      }
+      
+      // Activer l'animation
+      specialAttack.classList.add('active');
+      
+      // Désactiver l'animation après qu'elle soit terminée
+      setTimeout(() => {
+        specialAttack.classList.remove('active');
+      }, 1000);
+    }
+
     function createImpactEffect() {
       const effect = document.createElement('div');
       effect.className = 'impact-effect';
@@ -1126,6 +1188,11 @@
       
       // Animer le marteau
       animateHammer();
+      
+      // Animer l'attaque spéciale pour les modes d'attaque élevés
+      if (attackMode >= 30) {
+        animateSpecialAttack();
+      }
       
       playHitSound();
       createHitParticles();
