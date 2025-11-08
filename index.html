@@ -893,13 +893,230 @@
       display: block;
       color: #ffffff;
     }
+
+    /* Styles pour le jackpot */
+    .jackpot-container {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    .jackpot-container:hover {
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .jackpot-title {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #FFD700;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+
+    .jackpot-amount {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .jackpot-progress-container {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .jackpot-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jackpot-progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Tableau des derniers gains */
+    .winners-table {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 250px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      padding: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      cursor: move;
+      transition: all 0.3s ease;
+    }
+
+    .winners-table:hover {
+      background: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .winners-title {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #FFD700;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      padding-bottom: 5px;
+    }
+
+    .winners-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .winner-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9em;
+    }
+
+    .winner-name {
+      color: #ffffff;
+    }
+
+    .winner-amount {
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    .jackpot-winner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .jackpot-winner.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .jackpot-winner-content {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 140, 0, 0.95));
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      transform: scale(0.7);
+      transition: transform 0.5s ease;
+    }
+
+    .jackpot-winner.active .jackpot-winner-content {
+      transform: scale(1);
+    }
+
+    .jackpot-winner-content h3 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .jackpot-winner-amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+      margin: 20px 0;
+    }
+
+    .jackpot-winner-message {
+      font-size: 1.3em;
+      margin: 20px 0;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .jackpot-close-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .jackpot-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #FFA500, #FF8C00);
+    }
   </style>
 </head>
 <body>
+  <!-- Tableau des derniers gains (déplaçable) -->
+  <div class="winners-table" id="winnersTable">
+    <div class="winners-title">🎰 Derniers Jackpots 🎰</div>
+    <div class="winners-list" id="winnersList">
+      <!-- Les gains seront ajoutés dynamiquement ici -->
+    </div>
+  </div>
+
   <div class="game-container" id="gameContainer">
     <div class="combo-indicator" id="comboIndicator">COMBO x0</div>
 
     <h1>🐯 Le Tigre Magique !</h1>
+    
+    <!-- Barre de jackpot discrète -->
+    <div class="jackpot-container">
+      <div class="jackpot-title">JACKPOT</div>
+      <div class="jackpot-amount" id="jackpotAmount">1 000 🌹</div>
+      <div class="jackpot-progress-container">
+        <div class="jackpot-progress-bar" id="jackpotProgressBar" style="width: 0%"></div>
+      </div>
+    </div>
     
     <div class="difficulty-selector">
       <div class="difficulty-btn noob active" data-difficulty="noob" title="Noob - 1500 HP"></div>
@@ -972,6 +1189,16 @@
     </div>
   </div>
 
+  <!-- Popup de jackpot gagné -->
+  <div class="jackpot-winner" id="jackpotWinner">
+    <div class="jackpot-winner-content">
+      <h3>🎰 JACKPOT GAGNÉ ! 🎰</h3>
+      <div class="jackpot-winner-amount" id="jackpotWinnerAmount">1 000 🌹</div>
+      <p class="jackpot-winner-message">Félicitations ! Vous avez remporté le jackpot !</p>
+      <button class="jackpot-close-btn" id="jackpotCloseBtn">Continuer</button>
+    </div>
+  </div>
+
   <script>
     let maxHP, currentHP, coupCounter, totalHits;
     let hitsUntilCoin = 4;
@@ -982,6 +1209,12 @@
     let isAttacking = false;
     let audioContext = null;
     let currentDifficulty = "noob";
+    
+    // Variables pour le jackpot
+    let jackpotAmount = 1000;
+    let jackpotProgress = 0;
+    let jackpotHitsCounter = 0;
+    let recentWinners = [];
 
     const tiger = document.getElementById("tiger");
     const message = document.getElementById("message");
@@ -998,6 +1231,17 @@
     const popupRewardText = document.getElementById("popupRewardText");
     const popupVictoryMessage = document.getElementById("popupVictoryMessage");
     const closePopupBtn = document.getElementById("closePopupBtn");
+    
+    // Éléments du jackpot
+    const jackpotAmountElement = document.getElementById("jackpotAmount");
+    const jackpotProgressBar = document.getElementById("jackpotProgressBar");
+    const jackpotWinner = document.getElementById("jackpotWinner");
+    const jackpotWinnerAmount = document.getElementById("jackpotWinnerAmount");
+    const jackpotCloseBtn = document.getElementById("jackpotCloseBtn");
+    
+    // Éléments du tableau des gains
+    const winnersTable = document.getElementById("winnersTable");
+    const winnersList = document.getElementById("winnersList");
 
     const impactEffects = ["💥", "🔥", "⭐", "💫", "✨", "💢"];
 
@@ -1054,6 +1298,13 @@
       createSound(100, 0.5, 'sawtooth');
       setTimeout(() => createSound(300, 0.3, 'square'), 100);
       setTimeout(() => createSound(600, 0.2, 'sine'), 200);
+    }
+
+    function playJackpotSound() {
+      createSound(523, 0.1, 'sine', 0.2);
+      setTimeout(() => createSound(659, 0.1, 'sine', 0.2), 100);
+      setTimeout(() => createSound(784, 0.1, 'sine', 0.2), 200);
+      setTimeout(() => createSound(1047, 0.3, 'sine', 0.3), 300);
     }
 
     // Fonction pour créer un marteau animé
@@ -1175,6 +1426,84 @@
       }
     }
 
+    // Fonction pour mettre à jour le jackpot
+    function updateJackpot() {
+      jackpotAmountElement.textContent = jackpotAmount.toLocaleString() + " 🌹";
+      jackpotProgressBar.style.width = jackpotProgress + "%";
+    }
+
+    // Fonction pour mettre à jour le tableau des gains
+    function updateWinnersTable() {
+      winnersList.innerHTML = '';
+      
+      if (recentWinners.length === 0) {
+        winnersList.innerHTML = '<div class="winner-item"><span class="winner-name">Aucun gain récent</span></div>';
+        return;
+      }
+      
+      recentWinners.forEach(winner => {
+        const winnerItem = document.createElement('div');
+        winnerItem.className = 'winner-item';
+        winnerItem.innerHTML = `
+          <span class="winner-name">${winner.name}</span>
+          <span class="winner-amount">${winner.amount.toLocaleString()} 🌹</span>
+        `;
+        winnersList.appendChild(winnerItem);
+      });
+    }
+
+    // Fonction pour vérifier si le jackpot est gagné
+    function checkJackpot() {
+      // Vérifier si on a atteint 100 coups pour ajouter 5 roses au jackpot
+      if (jackpotHitsCounter >= 100) {
+        jackpotAmount += 5;
+        jackpotHitsCounter = 0;
+        jackpotProgress = 0;
+        
+        // Mettre à jour l'affichage
+        updateJackpot();
+        
+        // Vérifier si on gagne le jackpot (1 chance sur 5 millions)
+        if (Math.random() < 1/5000000) {
+          winJackpot();
+        }
+      } else {
+        // Mettre à jour la progression
+        jackpotProgress = (jackpotHitsCounter / 100) * 100;
+        updateJackpot();
+      }
+    }
+
+    // Fonction pour gagner le jackpot
+    function winJackpot() {
+      playJackpotSound();
+      
+      // Ajouter le gagnant à la liste
+      const playerName = "Joueur " + Math.floor(Math.random() * 1000);
+      recentWinners.unshift({
+        name: playerName,
+        amount: jackpotAmount
+      });
+      
+      // Garder seulement les 5 derniers gains
+      if (recentWinners.length > 5) {
+        recentWinners = recentWinners.slice(0, 5);
+      }
+      
+      // Mettre à jour le tableau des gains
+      updateWinnersTable();
+      
+      // Afficher la popup de victoire du jackpot
+      jackpotWinnerAmount.textContent = jackpotAmount.toLocaleString() + " 🌹";
+      jackpotWinner.classList.add('active');
+      
+      // Réinitialiser le jackpot
+      jackpotAmount = 1000;
+      jackpotHitsCounter = 0;
+      jackpotProgress = 0;
+      updateJackpot();
+    }
+
     // Fonction d'attaque CORRIGÉE avec protection anti-clics multiples
     function attack() {
       if (currentHP <= 0 || isAttacking) return;
@@ -1230,6 +1559,7 @@
         coupCounter++;
         actualHits++;
         totalHits++;
+        jackpotHitsCounter++; // Incrémenter le compteur de coups pour le jackpot
 
         // 1 coup = -1 point de vie
         currentHP--;
@@ -1241,6 +1571,9 @@
           hitsUntilCoin = 4;
         }
       }
+      
+      // Vérifier si on gagne le jackpot
+      checkJackpot();
       
       if (rosesEarned > 0) {
         showRoseGain(rosesEarned);
@@ -1364,6 +1697,10 @@
       }, 300);
     }
 
+    function closeJackpotPopup() {
+      jackpotWinner.classList.remove('active');
+    }
+
     function endGame() {
       playBreakSound();
       
@@ -1459,6 +1796,43 @@
       updateUI();
     }
 
+    // Fonction pour rendre le tableau des gains déplaçable
+    function makeElementDraggable(element) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      
+      element.onmousedown = dragMouseDown;
+      
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // Obtenir la position de la souris au début du déplacement
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // Appeler une fonction chaque fois que la souris bouge
+        document.onmousemove = elementDrag;
+      }
+      
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // Calculer la nouvelle position
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // Définir la nouvelle position de l'élément
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+      }
+      
+      function closeDragElement() {
+        // Arrêter le déplacement lorsque le bouton de la souris est relâché
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
     // Événements CORRIGÉS
     document.getElementById("attackBtn").addEventListener("click", attack);
     document.getElementById("resetBtn").addEventListener("click", initGame);
@@ -1479,11 +1853,18 @@
 
     // Fermer la popup
     closePopupBtn.addEventListener('click', closeVictoryPopup);
+    jackpotCloseBtn.addEventListener('click', closeJackpotPopup);
 
     // Fermer la popup en cliquant en dehors
     victoryPopup.addEventListener('click', function(e) {
       if (e.target === this) {
         closeVictoryPopup();
+      }
+    });
+
+    jackpotWinner.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeJackpotPopup();
       }
     });
 
@@ -1541,6 +1922,7 @@
           break;
         case 'Escape':
           closeVictoryPopup();
+          closeJackpotPopup();
           break;
       }
     });
@@ -1554,6 +1936,13 @@
       }
     }, 1000);
 
+    // Initialiser le jackpot
+    updateJackpot();
+    updateWinnersTable();
+    
+    // Rendre le tableau des gains déplaçable
+    makeElementDraggable(winnersTable);
+    
     initGame();
   </script>
 </body>
