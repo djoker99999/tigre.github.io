@@ -135,6 +135,16 @@
       animation: redGlow 2s ease-in-out infinite alternate;
     }
 
+    .tiger.extreme {
+      filter: drop-shadow(0 0 30px rgba(128, 0, 128, 0.9)) brightness(1.2) hue-rotate(270deg);
+      animation: purpleGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes purpleGlow {
+      0% { filter: drop-shadow(0 0 30px rgba(128, 0, 128, 0.9)) brightness(1.2) hue-rotate(270deg); }
+      100% { filter: drop-shadow(0 0 40px rgba(255, 0, 255, 1)) brightness(1.4) hue-rotate(260deg); }
+    }
+
     @keyframes redGlow {
       0% { filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)) brightness(1.1) hue-rotate(330deg); }
       100% { filter: drop-shadow(0 0 35px rgba(255, 50, 50, 1)) brightness(1.3) hue-rotate(320deg); }
@@ -720,6 +730,10 @@
       background-image: url('https://i.ibb.co/DHBNtX7t/IMG-6573.png');
     }
 
+    .difficulty-btn.extreme {
+      background-image: url('https://i.ibb.co/N6ZGGZ93/extreme.png');
+    }
+
     .difficulty-btn.active {
       border-color: #ff8c00;
       box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
@@ -861,6 +875,10 @@
 
     .difficulty-badge.hard {
       background: linear-gradient(45deg, #F44336, #E91E63);
+    }
+
+    .difficulty-badge.extreme {
+      background: linear-gradient(45deg, #8A2BE2, #4B0082);
     }
 
     /* Compteur de points de vie */
@@ -1046,6 +1064,7 @@
       backdrop-filter: blur(10px);
       transform: scale(0.7);
       transition: transform 0.5s ease;
+      position: relative;
     }
 
     .jackpot-winner.active .jackpot-winner-content {
@@ -1093,6 +1112,260 @@
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
       background: linear-gradient(45deg, #FFA500, #FF8C00);
     }
+
+    /* Styles pour le pool de drop */
+    .drop-pool-container {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    .drop-pool-container:hover {
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .drop-pool-title {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #00FFFF;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+
+    .drop-pool-amount {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #00FFFF;
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .drop-pool-progress-container {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .drop-pool-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00FFFF, #0080FF, #0040FF);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drop-pool-progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    .drop-pool-winner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .drop-pool-winner.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drop-pool-winner-content {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.95), rgba(0, 128, 255, 0.95));
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      transform: scale(0.7);
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+
+    .drop-pool-winner.active .drop-pool-winner-content {
+      transform: scale(1);
+    }
+
+    .drop-pool-winner-content h3 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .drop-pool-winner-amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #00FFFF;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+      margin: 20px 0;
+    }
+
+    .drop-pool-winner-message {
+      font-size: 1.3em;
+      margin: 20px 0;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .drop-pool-close-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #00FFFF, #0080FF);
+      color: #000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .drop-pool-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #0080FF, #0040FF);
+    }
+
+    /* Styles pour les deux carrés */
+    .jackpot-drop-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .jackpot-square, .drop-square {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 15px;
+      border: 2px solid;
+      box-shadow: 0 0 10px;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .jackpot-square {
+      border-color: rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    }
+
+    .drop-square {
+      border-color: rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .jackpot-square:hover {
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .drop-square:hover {
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .jackpot-square-title {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #FFD700;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+
+    .drop-square-title {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #00FFFF;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+
+    .jackpot-square-amount {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .drop-square-amount {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #00FFFF;
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .jackpot-square-progress-container, .drop-square-progress-container {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .jackpot-square-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drop-square-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00FFFF, #0080FF, #0040FF);
+      border-radius: 6px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jackpot-square-progress-bar::after, .drop-square-progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
   </style>
 </head>
 <body>
@@ -1109,12 +1382,22 @@
 
     <h1>🐯 Le Tigre Magique !</h1>
     
-    <!-- Barre de jackpot discrète -->
-    <div class="jackpot-container">
-      <div class="jackpot-title">JACKPOT</div>
-      <div class="jackpot-amount" id="jackpotAmount">1 000 🌹</div>
-      <div class="jackpot-progress-container">
-        <div class="jackpot-progress-bar" id="jackpotProgressBar" style="width: 0%"></div>
+    <!-- Deux carrés pour le jackpot et le pool de drop -->
+    <div class="jackpot-drop-container">
+      <div class="jackpot-square">
+        <div class="jackpot-square-title">JACKPOT</div>
+        <div class="jackpot-square-amount" id="jackpotAmount">1 000 🌹</div>
+        <div class="jackpot-square-progress-container">
+          <div class="jackpot-square-progress-bar" id="jackpotProgressBar" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="drop-square">
+        <div class="drop-square-title">POOL DE DROP</div>
+        <div class="drop-square-amount" id="dropPoolAmount">0 🌹</div>
+        <div class="drop-square-progress-container">
+          <div class="drop-square-progress-bar" id="dropPoolProgressBar" style="width: 0%"></div>
+        </div>
       </div>
     </div>
     
@@ -1124,6 +1407,7 @@
       <div class="difficulty-btn easy" data-difficulty="easy" title="Facile - 15000 HP"></div>
       <div class="difficulty-btn medium" data-difficulty="medium" title="Moyen - 25000 HP"></div>
       <div class="difficulty-btn hard" data-difficulty="hard" title="Difficile - 50000 HP"></div>
+      <div class="difficulty-btn extreme" data-difficulty="extreme" title="Extrême - 10000 HP"></div>
     </div>
     
     <div class="tiger-container">
@@ -1199,6 +1483,16 @@
     </div>
   </div>
 
+  <!-- Popup de pool de drop gagné -->
+  <div class="drop-pool-winner" id="dropPoolWinner">
+    <div class="drop-pool-winner-content">
+      <h3>💎 POOL DE DROP GAGNÉ ! 💎</h3>
+      <div class="drop-pool-winner-amount" id="dropPoolWinnerAmount">0 🌹</div>
+      <p class="drop-pool-winner-message">Félicitations ! Vous avez remporté le pool de drop !</p>
+      <button class="drop-pool-close-btn" id="dropPoolCloseBtn">Continuer</button>
+    </div>
+  </div>
+
   <script>
     let maxHP, currentHP, coupCounter, totalHits;
     let hitsUntilCoin = 4;
@@ -1215,6 +1509,11 @@
     let jackpotProgress = 0;
     let jackpotHitsCounter = 0;
     let recentWinners = [];
+    
+    // Variables pour le pool de drop
+    let dropPoolAmount = 0;
+    let dropPoolHitsCounter = 0;
+    let dropPoolProgress = 0;
 
     const tiger = document.getElementById("tiger");
     const message = document.getElementById("message");
@@ -1238,6 +1537,13 @@
     const jackpotWinner = document.getElementById("jackpotWinner");
     const jackpotWinnerAmount = document.getElementById("jackpotWinnerAmount");
     const jackpotCloseBtn = document.getElementById("jackpotCloseBtn");
+    
+    // Éléments du pool de drop
+    const dropPoolAmountElement = document.getElementById("dropPoolAmount");
+    const dropPoolProgressBar = document.getElementById("dropPoolProgressBar");
+    const dropPoolWinner = document.getElementById("dropPoolWinner");
+    const dropPoolWinnerAmount = document.getElementById("dropPoolWinnerAmount");
+    const dropPoolCloseBtn = document.getElementById("dropPoolCloseBtn");
     
     // Éléments du tableau des gains
     const winnersTable = document.getElementById("winnersTable");
@@ -1305,6 +1611,13 @@
       setTimeout(() => createSound(659, 0.1, 'sine', 0.2), 100);
       setTimeout(() => createSound(784, 0.1, 'sine', 0.2), 200);
       setTimeout(() => createSound(1047, 0.3, 'sine', 0.3), 300);
+    }
+
+    function playDropPoolSound() {
+      createSound(440, 0.1, 'sine', 0.2);
+      setTimeout(() => createSound(554, 0.1, 'sine', 0.2), 100);
+      setTimeout(() => createSound(659, 0.1, 'sine', 0.2), 200);
+      setTimeout(() => createSound(880, 0.3, 'sine', 0.3), 300);
     }
 
     // Fonction pour créer un marteau animé
@@ -1432,6 +1745,12 @@
       jackpotProgressBar.style.width = jackpotProgress + "%";
     }
 
+    // Fonction pour mettre à jour le pool de drop
+    function updateDropPool() {
+      dropPoolAmountElement.textContent = dropPoolAmount.toLocaleString() + " 🌹";
+      dropPoolProgressBar.style.width = dropPoolProgress + "%";
+    }
+
     // Fonction pour mettre à jour le tableau des gains
     function updateWinnersTable() {
       winnersList.innerHTML = '';
@@ -1474,6 +1793,28 @@
       }
     }
 
+    // Fonction pour vérifier si le pool de drop est gagné
+    function checkDropPool() {
+      // Vérifier si on a atteint 100 coups pour ajouter 5 roses au pool de drop
+      if (dropPoolHitsCounter >= 100) {
+        dropPoolAmount += 5;
+        dropPoolHitsCounter = 0;
+        dropPoolProgress = 0;
+        
+        // Mettre à jour l'affichage
+        updateDropPool();
+        
+        // Vérifier si on gagne le pool de drop (1 chance sur 5000)
+        if (Math.random() < 1/5000) {
+          winDropPool();
+        }
+      } else {
+        // Mettre à jour la progression
+        dropPoolProgress = (dropPoolHitsCounter / 100) * 100;
+        updateDropPool();
+      }
+    }
+
     // Fonction pour gagner le jackpot
     function winJackpot() {
       playJackpotSound();
@@ -1502,6 +1843,36 @@
       jackpotHitsCounter = 0;
       jackpotProgress = 0;
       updateJackpot();
+    }
+
+    // Fonction pour gagner le pool de drop
+    function winDropPool() {
+      playDropPoolSound();
+      
+      // Ajouter le gagnant à la liste
+      const playerName = "Joueur " + Math.floor(Math.random() * 1000);
+      recentWinners.unshift({
+        name: playerName,
+        amount: dropPoolAmount
+      });
+      
+      // Garder seulement les 5 derniers gains
+      if (recentWinners.length > 5) {
+        recentWinners = recentWinners.slice(0, 5);
+      }
+      
+      // Mettre à jour le tableau des gains
+      updateWinnersTable();
+      
+      // Afficher la popup de victoire du pool de drop
+      dropPoolWinnerAmount.textContent = dropPoolAmount.toLocaleString() + " 🌹";
+      dropPoolWinner.classList.add('active');
+      
+      // Réinitialiser le pool de drop
+      dropPoolAmount = 0;
+      dropPoolHitsCounter = 0;
+      dropPoolProgress = 0;
+      updateDropPool();
     }
 
     // Fonction d'attaque CORRIGÉE avec protection anti-clics multiples
@@ -1560,6 +1931,7 @@
         actualHits++;
         totalHits++;
         jackpotHitsCounter++; // Incrémenter le compteur de coups pour le jackpot
+        dropPoolHitsCounter++; // Incrémenter le compteur de coups pour le pool de drop
 
         // 1 coup = -1 point de vie
         currentHP--;
@@ -1574,6 +1946,9 @@
       
       // Vérifier si on gagne le jackpot
       checkJackpot();
+      
+      // Vérifier si on gagne le pool de drop
+      checkDropPool();
       
       if (rosesEarned > 0) {
         showRoseGain(rosesEarned);
@@ -1618,6 +1993,7 @@
         case "easy": difficultyName = "facile"; break;
         case "medium": difficultyName = "moyen"; break;
         case "hard": difficultyName = "difficile"; break;
+        case "extreme": difficultyName = "extrême"; break;
       }
       
       if (currentHP === 0) {
@@ -1666,6 +2042,11 @@
           victoryText = "Victoire totale ! Tu as remporté le jackpot !";
           rewardImg = "https://i.ibb.co/DHBNtX7t/IMG-6573.png";
           break;
+        case "extreme":
+          rewardText = "Vous avez gagné 30000 pièces !";
+          victoryText = "LÉGENDAIRE ! Tu as vaincu le tigre extrême !";
+          rewardImg = "https://i.ibb.co/N6ZGGZ93/extreme.png";
+          break;
       }
       
       popupRewardImage.style.backgroundImage = `url('${rewardImg}')`;
@@ -1699,6 +2080,10 @@
 
     function closeJackpotPopup() {
       jackpotWinner.classList.remove('active');
+    }
+
+    function closeDropPoolPopup() {
+      dropPoolWinner.classList.remove('active');
     }
 
     function endGame() {
@@ -1760,6 +2145,9 @@
         case "hard":
           maxHP = 50000;
           break;
+        case "extreme":
+          maxHP = 10000;
+          break;
       }
       
       currentHP = maxHP;
@@ -1780,6 +2168,7 @@
         case "easy": difficultyName = "facile"; break;
         case "medium": difficultyName = "moyen"; break;
         case "hard": difficultyName = "difficile"; break;
+        case "extreme": difficultyName = "extrême"; break;
       }
       message.textContent = `Tigre magique ${difficultyName} - À tout moment le tigre peut être dompté...`;
       
@@ -1854,6 +2243,7 @@
     // Fermer la popup
     closePopupBtn.addEventListener('click', closeVictoryPopup);
     jackpotCloseBtn.addEventListener('click', closeJackpotPopup);
+    dropPoolCloseBtn.addEventListener('click', closeDropPoolPopup);
 
     // Fermer la popup en cliquant en dehors
     victoryPopup.addEventListener('click', function(e) {
@@ -1865,6 +2255,12 @@
     jackpotWinner.addEventListener('click', function(e) {
       if (e.target === this) {
         closeJackpotPopup();
+      }
+    });
+
+    dropPoolWinner.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeDropPoolPopup();
       }
     });
 
@@ -1920,9 +2316,14 @@
         case 'D':
           setDifficulty('hard');
           break;
+        case 'x':
+        case 'X':
+          setDifficulty('extreme');
+          break;
         case 'Escape':
           closeVictoryPopup();
           closeJackpotPopup();
+          closeDropPoolPopup();
           break;
       }
     });
@@ -1936,8 +2337,9 @@
       }
     }, 1000);
 
-    // Initialiser le jackpot
+    // Initialiser le jackpot et le pool de drop
     updateJackpot();
+    updateDropPool();
     updateWinnersTable();
     
     // Rendre le tableau des gains déplaçable
