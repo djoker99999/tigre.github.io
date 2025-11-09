@@ -912,350 +912,6 @@
       color: #ffffff;
     }
 
-    /* Styles pour le jackpot */
-    .jackpot-container {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      padding: 10px;
-      margin: 15px 0;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-
-    .jackpot-container:hover {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-    }
-
-    .jackpot-title {
-      font-size: 1.1em;
-      margin-bottom: 8px;
-      color: #FFD700;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-
-    .jackpot-amount {
-      font-size: 1.4em;
-      font-weight: bold;
-      color: #FFD700;
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-      margin-bottom: 8px;
-    }
-
-    .jackpot-progress-container {
-      width: 100%;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 8px 0;
-    }
-
-    .jackpot-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00);
-      border-radius: 6px;
-      transition: width 0.5s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .jackpot-progress-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      animation: shimmer 2s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    /* Tableau des derniers gains */
-    .winners-table {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 250px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
-      padding: 15px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-      z-index: 100;
-      cursor: move;
-      transition: all 0.3s ease;
-    }
-
-    .winners-table:hover {
-      background: rgba(0, 0, 0, 0.7);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-    }
-
-    .winners-title {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      color: #FFD700;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-      padding-bottom: 5px;
-    }
-
-    .winners-list {
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .winner-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 0.9em;
-    }
-
-    .winner-name {
-      color: #ffffff;
-    }
-
-    .winner-amount {
-      color: #FFD700;
-      font-weight: bold;
-    }
-
-    .jackpot-winner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s ease;
-    }
-
-    .jackpot-winner.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .jackpot-winner-content {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 140, 0, 0.95));
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 3px solid rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-      transform: scale(0.7);
-      transition: transform 0.5s ease;
-      position: relative;
-    }
-
-    .jackpot-winner.active .jackpot-winner-content {
-      transform: scale(1);
-    }
-
-    .jackpot-winner-content h3 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .jackpot-winner-amount {
-      font-size: 2.5em;
-      font-weight: bold;
-      color: #FFD700;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
-      margin: 20px 0;
-    }
-
-    .jackpot-winner-message {
-      font-size: 1.3em;
-      margin: 20px 0;
-      color: #ffffff;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    }
-
-    .jackpot-close-btn {
-      padding: 12px 30px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 20px;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      color: #000;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .jackpot-close-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(45deg, #FFA500, #FF8C00);
-    }
-
-    /* Styles pour le pool de drop */
-    .drop-pool-container {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      padding: 10px;
-      margin: 15px 0;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-
-    .drop-pool-container:hover {
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-    }
-
-    .drop-pool-title {
-      font-size: 1.1em;
-      margin-bottom: 8px;
-      color: #00FFFF;
-      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-    }
-
-    .drop-pool-amount {
-      font-size: 1.4em;
-      font-weight: bold;
-      color: #00FFFF;
-      text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
-      margin-bottom: 8px;
-    }
-
-    .drop-pool-progress-container {
-      width: 100%;
-      height: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 8px 0;
-    }
-
-    .drop-pool-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #00FFFF, #0080FF, #0040FF);
-      border-radius: 6px;
-      transition: width 0.5s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .drop-pool-progress-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      animation: shimmer 2s infinite;
-    }
-
-    .drop-pool-winner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s ease;
-    }
-
-    .drop-pool-winner.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .drop-pool-winner-content {
-      background: linear-gradient(135deg, rgba(0, 255, 255, 0.95), rgba(0, 128, 255, 0.95));
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 3px solid rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-      transform: scale(0.7);
-      transition: transform 0.5s ease;
-      position: relative;
-    }
-
-    .drop-pool-winner.active .drop-pool-winner-content {
-      transform: scale(1);
-    }
-
-    .drop-pool-winner-content h3 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .drop-pool-winner-amount {
-      font-size: 2.5em;
-      font-weight: bold;
-      color: #00FFFF;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
-      margin: 20px 0;
-    }
-
-    .drop-pool-winner-message {
-      font-size: 1.3em;
-      margin: 20px 0;
-      color: #ffffff;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    }
-
-    .drop-pool-close-btn {
-      padding: 12px 30px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 20px;
-      background: linear-gradient(45deg, #00FFFF, #0080FF);
-      color: #000;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .drop-pool-close-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(45deg, #0080FF, #0040FF);
-    }
-
     /* Styles pour les deux carrés */
     .jackpot-drop-container {
       display: flex;
@@ -1365,6 +1021,225 @@
       bottom: 0;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       animation: shimmer 2s infinite;
+    }
+
+    /* Tableau des derniers gains */
+    .winners-table {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 250px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      padding: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      cursor: move;
+      transition: all 0.3s ease;
+    }
+
+    .winners-table:hover {
+      background: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .winners-title {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #FFD700;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      padding-bottom: 5px;
+    }
+
+    .winners-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .winner-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9em;
+    }
+
+    .winner-name {
+      color: #ffffff;
+    }
+
+    .winner-amount {
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    /* Popup de jackpot gagné */
+    .jackpot-winner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .jackpot-winner.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .jackpot-winner-content {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 140, 0, 0.95));
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      transform: scale(0.7);
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+
+    .jackpot-winner.active .jackpot-winner-content {
+      transform: scale(1);
+    }
+
+    .jackpot-winner-content h3 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .jackpot-winner-amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+      margin: 20px 0;
+    }
+
+    .jackpot-winner-message {
+      font-size: 1.3em;
+      margin: 20px 0;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .jackpot-close-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .jackpot-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #FFA500, #FF8C00);
+    }
+
+    /* Popup de pool de drop gagné */
+    .drop-pool-winner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .drop-pool-winner.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drop-pool-winner-content {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.95), rgba(0, 128, 255, 0.95));
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      transform: scale(0.7);
+      transition: transform 0.5s ease;
+      position: relative;
+    }
+
+    .drop-pool-winner.active .drop-pool-winner-content {
+      transform: scale(1);
+    }
+
+    .drop-pool-winner-content h3 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .drop-pool-winner-amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #00FFFF;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+      margin: 20px 0;
+    }
+
+    .drop-pool-winner-message {
+      font-size: 1.3em;
+      margin: 20px 0;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .drop-pool-close-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #00FFFF, #0080FF);
+      color: #000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .drop-pool-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, #0080FF, #0040FF);
     }
   </style>
 </head>
@@ -1804,8 +1679,8 @@
         // Mettre à jour l'affichage
         updateDropPool();
         
-        // Vérifier si on gagne le pool de drop (1 chance sur 5000)
-        if (Math.random() < 1/5000) {
+        // Vérifier si on gagne le pool de drop (1 chance sur 500)
+        if (Math.random() < 1/500) {
           winDropPool();
         }
       } else {
